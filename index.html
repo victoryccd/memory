@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>업무 공유 대시보드</title>
+<link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="app-header">
+    <div class="header-inner">
+      <h1>업무 공유 대시보드</h1>
+      <button id="add-task-btn" class="btn btn-primary">+ 새 업무</button>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="stats" id="stats">
+      <div class="stat-card">
+        <span class="stat-value" id="stat-total">0</span>
+        <span class="stat-label">전체 업무</span>
+      </div>
+      <div class="stat-card">
+        <span class="stat-value" id="stat-todo">0</span>
+        <span class="stat-label">할 일</span>
+      </div>
+      <div class="stat-card">
+        <span class="stat-value" id="stat-progress">0</span>
+        <span class="stat-label">진행중</span>
+      </div>
+      <div class="stat-card">
+        <span class="stat-value" id="stat-done">0</span>
+        <span class="stat-label">완료</span>
+      </div>
+      <div class="stat-card stat-card-warning">
+        <span class="stat-value" id="stat-overdue">0</span>
+        <span class="stat-label">기한 초과</span>
+      </div>
+    </section>
+
+    <section class="filters">
+      <input type="text" id="search-input" placeholder="업무 검색..." />
+      <select id="assignee-filter">
+        <option value="">전체 담당자</option>
+      </select>
+      <select id="priority-filter">
+        <option value="">전체 우선순위</option>
+        <option value="high">높음</option>
+        <option value="medium">보통</option>
+        <option value="low">낮음</option>
+      </select>
+    </section>
+
+    <section class="board" id="board">
+      <div class="board-column" data-status="todo">
+        <h2>할 일 <span class="count" id="count-todo">0</span></h2>
+        <div class="card-list" id="list-todo"></div>
+      </div>
+      <div class="board-column" data-status="progress">
+        <h2>진행중 <span class="count" id="count-progress">0</span></h2>
+        <div class="card-list" id="list-progress"></div>
+      </div>
+      <div class="board-column" data-status="done">
+        <h2>완료 <span class="count" id="count-done">0</span></h2>
+        <div class="card-list" id="list-done"></div>
+      </div>
+    </section>
+  </main>
+
+  <div id="modal-overlay" class="modal-overlay hidden">
+    <div class="modal">
+      <h2 id="modal-title">새 업무</h2>
+      <form id="task-form">
+        <input type="hidden" id="task-id" />
+        <label>
+          제목
+          <input type="text" id="task-title" required maxlength="120" />
+        </label>
+        <label>
+          담당자
+          <input type="text" id="task-assignee" required maxlength="40" placeholder="예: 홍길동" />
+        </label>
+        <label>
+          설명
+          <textarea id="task-description" rows="3" maxlength="500"></textarea>
+        </label>
+        <div class="form-row">
+          <label>
+            상태
+            <select id="task-status">
+              <option value="todo">할 일</option>
+              <option value="progress">진행중</option>
+              <option value="done">완료</option>
+            </select>
+          </label>
+          <label>
+            우선순위
+            <select id="task-priority">
+              <option value="high">높음</option>
+              <option value="medium" selected>보통</option>
+              <option value="low">낮음</option>
+            </select>
+          </label>
+        </div>
+        <label>
+          마감일
+          <input type="date" id="task-due" />
+        </label>
+        <div class="modal-actions">
+          <button type="button" id="delete-task-btn" class="btn btn-danger hidden">삭제</button>
+          <div class="modal-actions-right">
+            <button type="button" id="cancel-btn" class="btn btn-secondary">취소</button>
+            <button type="submit" class="btn btn-primary">저장</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
